@@ -17,7 +17,12 @@ class CustomTextField extends StatelessWidget {
               borderSide: BorderSide(color: Colors.black)),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.black))),
-      validator: (val) {},
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return 'enter your $hintText';
+        }
+        return null;
+      },
     );
   }
 }
