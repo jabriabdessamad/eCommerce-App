@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:e_commerce_app/constants/errorHandling.dart';
 import 'package:e_commerce_app/constants/global_variables.dart';
 import 'package:e_commerce_app/constants/utils.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
+  //sign up user
+
   void signUpUsuer(
       {required BuildContext context,
       required String name,
@@ -32,6 +36,25 @@ class AuthService {
             showSnackBar(
                 context, 'Account created! login with the same credentiels');
           });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
+  //sign in user
+
+  void signInUsuer(
+      {required BuildContext context,
+      required String email,
+      required String password}) async {
+    try {
+      http.Response res = await http.post(Uri.parse('$uri/api/signin'),
+          body: jsonEncode({'email': email, 'password': password}),
+          headers: <String, String>{
+            'Content-Type': 'application/json;charset=UTF-8'
+          });
+      print(res.body);
+      httpErrorHandle(response: res, context: context, onSuccess: () {});
     } catch (e) {
       showSnackBar(context, e.toString());
     }

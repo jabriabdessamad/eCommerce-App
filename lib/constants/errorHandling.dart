@@ -10,7 +10,7 @@ void httpErrorHandle(
     required VoidCallback onSuccess}) {
   switch (response.statusCode) {
     case 200:
-      onSuccess;
+      onSuccess();
       break;
     case 400:
       showSnackBar(context, jsonDecode(response.body)['msg']);
